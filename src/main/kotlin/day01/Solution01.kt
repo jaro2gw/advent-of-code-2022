@@ -1,11 +1,11 @@
 package day01
 
 import Input
+import Presenter
 import Solution
-import SolutionPresenter
 import java.util.LinkedList
 
-fun main() = SolutionPresenter.present(Solution01)
+fun main() = Presenter.present(Solution01)
 
 object Solution01 : Solution {
     private fun Sequence<String>.split(): Sequence<List<String>> = sequence {

@@ -1,8 +1,8 @@
 package day02
 
 import Input
+import Presenter
 import Solution
-import SolutionPresenter
 import day02.RockPaperScissorsGameOutcome.DRAW
 import day02.RockPaperScissorsGameOutcome.LOSE
 import day02.RockPaperScissorsGameOutcome.WIN
@@ -10,7 +10,7 @@ import day02.RockPaperScissorsHandShape.PAPER
 import day02.RockPaperScissorsHandShape.ROCK
 import day02.RockPaperScissorsHandShape.SCISSORS
 
-fun main() = SolutionPresenter.present(Solution02)
+fun main() = Presenter.present(Solution02)
 
 object Solution02 : Solution {
     private fun interpret1(line: String): RockPaperScissorsGameRound {

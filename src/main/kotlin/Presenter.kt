@@ -1,13 +1,11 @@
-import input.SolutionInput
 import kotlin.time.ExperimentalTime
 import kotlin.time.measureTimedValue
 
 @OptIn(ExperimentalTime::class)
-object SolutionPresenter {
-    fun present(
-        solution: Solution,
-        input: Input = SolutionInput(solution::class.java)
-    ) {
+object Presenter {
+    fun present(solution: Solution) {
+        val input = Input(solution::class.java)
+
         val part1 = measureTimedValue { solution.part1(input) }
         println("Part 1:")
         println("\tSolution: ${part1.value}")

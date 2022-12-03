@@ -1,10 +1,10 @@
 package day03
 
 import Input
+import Presenter
 import Solution
-import SolutionPresenter
 
-fun main() = SolutionPresenter.present(Solution03)
+fun main() = Presenter.present(Solution03)
 
 object Solution03 : Solution {
     private fun error(items: String): Char {

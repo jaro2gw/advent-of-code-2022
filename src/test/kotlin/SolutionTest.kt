@@ -1,10 +1,9 @@
-import input.SolutionInput
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 
 abstract class SolutionTest {
-    private val input = SolutionInput(this::class.java)
+    private val input = Input(this::class.java)
     abstract val solution: Solution
 
     protected open val expected1: String = "TODO"
