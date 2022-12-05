@@ -8,5 +8,5 @@ class Input(clazz: Class<*>, name: String = "input.txt") {
         .let { Files.lines(it) }
         .toList()
 
-    fun lines() = lines.asSequence()
+    fun lines() = lines
 }

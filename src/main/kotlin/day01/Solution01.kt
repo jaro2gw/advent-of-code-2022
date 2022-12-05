@@ -8,9 +8,9 @@ import java.util.LinkedList
 fun main() = Presenter.present(Solution01)
 
 object Solution01 : Solution {
-    private fun Sequence<String>.split(): Sequence<List<String>> = sequence {
+    private fun split(input: Input) = sequence {
         var buffer = LinkedList<String>()
-        forEach { line ->
+        input.lines().forEach { line ->
             if (line.isBlank()) {
                 yield(buffer)
                 buffer = LinkedList()
@@ -19,8 +19,7 @@ object Solution01 : Solution {
         if (buffer.isNotEmpty()) yield(buffer)
     }
 
-    private fun calories(input: Input) = input.lines()
-        .split()
+    private fun calories(input: Input) = split(input)
         .map { it.map(String::toInt) }
         .map { it.sum() }
 
