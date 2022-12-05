@@ -30,7 +30,7 @@ object Solution05 : Solution {
             }
         }
 
-        val stacks = supplyCrateMover(size)
+        val mover = supplyCrateMover(size)
         crates.reversed()
             .drop(1) // labels
             .forEach { line ->
@@ -38,11 +38,11 @@ object Solution05 : Solution {
                     .forEach { result ->
                         val index = result.range.first / 4
                         val crate = result.groupValues[1][0]
-                        stacks.push(index, crate)
+                        mover.push(index, crate)
                     }
             }
 
-        return stacks to operations
+        return mover to operations
     }
 
     private fun operation(line: String): CrateMoverOperation {
