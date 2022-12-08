@@ -3,12 +3,13 @@ package day02
 import Input
 import Presenter
 import Solution
-import day02.RockPaperScissorsGameOutcome.DRAW
-import day02.RockPaperScissorsGameOutcome.LOSE
-import day02.RockPaperScissorsGameOutcome.WIN
-import day02.RockPaperScissorsHandShape.PAPER
-import day02.RockPaperScissorsHandShape.ROCK
-import day02.RockPaperScissorsHandShape.SCISSORS
+import day02.rps.RockPaperScissorsGameOutcome.DRAW
+import day02.rps.RockPaperScissorsGameOutcome.LOSE
+import day02.rps.RockPaperScissorsGameOutcome.WIN
+import day02.rps.RockPaperScissorsHandShape.PAPER
+import day02.rps.RockPaperScissorsHandShape.ROCK
+import day02.rps.RockPaperScissorsHandShape.SCISSORS
+import day02.rps.RockPaperScissorsGameRound
 
 fun main() = Presenter.present(Solution02)
 

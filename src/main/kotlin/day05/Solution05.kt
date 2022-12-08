@@ -3,6 +3,10 @@ package day05
 import Input
 import Presenter
 import Solution
+import day05.crate.mover.CrateMover
+import day05.crate.mover.CrateMover9000
+import day05.crate.mover.CrateMover9001
+import day05.crate.mover.CrateMoverOperation
 import kotlin.math.max
 
 fun main() = Presenter.present(Solution05)

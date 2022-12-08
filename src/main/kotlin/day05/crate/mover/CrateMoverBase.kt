@@ -1,4 +1,4 @@
-package day05
+package day05.crate.mover
 
 import java.util.Stack
 

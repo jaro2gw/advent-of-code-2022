@@ -1,4 +1,4 @@
-package day05
+package day05.crate.mover
 
 class CrateMover9000(size: Int) : CrateMoverBase(size) {
     override fun perform(operation: CrateMoverOperation) {

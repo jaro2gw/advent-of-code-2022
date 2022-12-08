@@ -1,4 +1,4 @@
-package day02
+package day02.rps
 
 enum class RockPaperScissorsHandShape(val score: Int) {
     ROCK(1),

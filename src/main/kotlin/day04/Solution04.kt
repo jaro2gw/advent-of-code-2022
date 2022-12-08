@@ -3,6 +3,7 @@ package day04
 import Input
 import Presenter
 import Solution
+import day04.section.SectionRange
 
 fun main() = Presenter.present(Solution04)
 

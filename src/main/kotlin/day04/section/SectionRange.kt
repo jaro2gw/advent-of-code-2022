@@ -1,4 +1,4 @@
-package day04
+package day04.section
 
 data class SectionRange(
     val start: Int,
