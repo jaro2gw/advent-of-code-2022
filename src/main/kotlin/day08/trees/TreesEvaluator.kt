@@ -69,10 +69,10 @@ class TreesEvaluator {
     ): Int {
         var count = 0
         for (y in ys) {
+            count += 1
             val (row, col) = coords(x, y)
             val tree = trees[row, col]
-            if (tree < spot) ++count
-            else return ++count
+            if (tree >= spot) break
         }
         return count
     }
