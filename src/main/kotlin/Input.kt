@@ -1,8 +1,8 @@
 import java.nio.file.Files
 import java.nio.file.Paths
 
-class Input(clazz: Class<*>) {
-    private val lines: List<String> = clazz.getResource("input.txt")!!
+class Input(clazz: Class<*>, name: String = "input.txt") {
+    private val lines: List<String> = clazz.getResource(name)!!
         .toURI()!!
         .let { Paths.get(it) }
         .let { Files.lines(it) }
