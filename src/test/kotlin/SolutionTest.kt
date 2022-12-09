@@ -3,7 +3,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
 abstract class SolutionTest {
-    private val input = Input(this::class.java)
+    private val input = Input(this::class.java, name = "example.txt")
     abstract val solution: Solution
 
     protected open val expected1: String? = null
