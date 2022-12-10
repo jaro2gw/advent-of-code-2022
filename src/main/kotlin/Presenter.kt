@@ -3,23 +3,24 @@ import kotlin.time.measureTimedValue
 
 @OptIn(ExperimentalTime::class)
 object Presenter {
+    private val separator = System.lineSeparator()
+
+    private fun present(part: Int, code: () -> String?) {
+        println("Part $part:")
+        val (answer, duration) = measureTimedValue(code)
+        if (answer == null) println("\tTODO")
+        else {
+            val prefix = if (answer.contains(separator)) separator else ""
+            val string = prefix + answer
+            println("\tSolution: $string")
+            println("\tDuration: $duration")
+        }
+    }
+
     fun present(solution: Solution) {
         val input = Input(solution::class.java)
 
-        val part1 = measureTimedValue { solution.part1(input) }
-        println("Part 1:")
-        if (part1.value == null) println("\tTODO")
-        else {
-            println("\tSolution: ${part1.value}")
-            println("\tDuration: ${part1.duration}")
-        }
-
-        val part2 = measureTimedValue { solution.part2(input) }
-        println("Part 2:")
-        if (part2.value == null) println("\tTODO")
-        else {
-            println("\tSolution: ${part2.value}")
-            println("\tDuration: ${part2.duration}")
-        }
+        present(part = 1) { solution.part1(input) }
+        present(part = 2) { solution.part2(input) }
     }
 }
