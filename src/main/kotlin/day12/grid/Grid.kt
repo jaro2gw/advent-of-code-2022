@@ -1,7 +1,7 @@
 package day12.grid
 
 class Grid(
-    val elevation: Array<IntArray>,
+    private val elevation: Array<IntArray>,
     val start: Coords,
     val end: Coords,
 ) {
@@ -9,10 +9,21 @@ class Grid(
         private val alphabet = ('a'..'z').toList().toCharArray()
     }
 
+    val rows: Int = elevation.size
+    val cols: Int = elevation[0].size
+
     init {
-        check(elevation[start] == 0)
-        check(elevation[end] == 26)
+        require(elevation[start] == 0)
+        require(elevation[end] == 26)
+
+        for (row in elevation) {
+            require(row.size == cols)
+        }
     }
+
+    operator fun get(coords: Coords): Int = elevation[coords]
+
+    operator fun contains(coords: Coords): Boolean = coords in elevation
 
     override fun toString(): String = elevation
         .mapIndexed { row, ints ->

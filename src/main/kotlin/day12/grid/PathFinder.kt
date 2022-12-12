@@ -1,52 +1,46 @@
 package day12.grid
 
 class PathFinder {
-    private fun climbUp(coords: Coords, elevation: Array<IntArray>, distance: Array<IntArray>) {
-        val max = elevation[coords] + 1
+    private fun climb(
+        coords: Coords,
+        grid: Grid,
+        distance: Array<IntArray>,
+        predicate: (source: Int, target: Int) -> Boolean
+    ) {
+        val elev = grid[coords]
         val dist = distance[coords] + 1
         coords.neighbours()
-            .filter { it in elevation }
+            .filter { it in grid }
             .filter { distance[it] > dist }
-            .filter { elevation[it] <= max }
+            .filter { predicate(elev, grid[it]) }
             .onEach { distance[it] = dist }
-            .forEach { climbUp(it, elevation, distance) }
+            .forEach { climb(it, grid, distance, predicate) }
     }
 
-    private fun climbDown(coords: Coords, elevation: Array<IntArray>, distance: Array<IntArray>) {
-        val min = elevation[coords] - 1
-        val dist = distance[coords] + 1
-        coords.neighbours()
-            .filter { it in elevation }
-            .filter { distance[it] > dist }
-            .filter { elevation[it] >= min }
-            .onEach { distance[it] = dist }
-            .forEach { climbDown(it, elevation, distance) }
+    private fun prepareDistanceArray(grid: Grid) = Array(grid.rows) {
+        IntArray(grid.cols) { Int.MAX_VALUE }
     }
 
     fun shortestUp(grid: Grid): Int {
-        val distance = Array(grid.elevation.size) {
-            IntArray(grid.elevation[it].size) { Int.MAX_VALUE }
-        }
+        val distance = prepareDistanceArray(grid)
 
         distance[grid.start] = 0
-        climbUp(grid.start, grid.elevation, distance)
+        climb(grid.start, grid, distance) { source, target -> target <= source + 1 }
 
         return distance[grid.end]
     }
 
     fun shortestDown(grid: Grid): Int {
-        val distance = Array(grid.elevation.size) {
-            IntArray(grid.elevation[it].size) { Int.MAX_VALUE }
-        }
+        val distance = prepareDistanceArray(grid)
 
         distance[grid.end] = 0
-        climbDown(grid.end, grid.elevation, distance)
+        climb(grid.end, grid, distance) { source, target -> target >= source - 1 }
 
         return distance
             .flatMapIndexed { row, ints ->
                 ints.mapIndexed { col, dist -> Coords(row, col) to dist }
             }
-            .filter { (coords, _) -> grid.elevation[coords] == 0 }
+            .filter { (coords, _) -> grid[coords] == 0 }
             .minOf { (_, dist) -> dist }
     }
 }
