@@ -5,19 +5,13 @@ data class PacketList(val packets: List<Packet>) : Packet() {
 
     override infix operator fun compareTo(other: Packet): Int {
         when (other) {
-            is PacketData -> return compareTo(other = PacketList(other))
+            is PacketData -> return compareTo(other = PacketList(packet = other))
             is PacketList -> {
                 val iterL = packets.iterator()
                 val iterR = other.packets.iterator()
 
-                var nextL: Packet
-                var nextR: Packet
-
                 while (iterL.hasNext() && iterR.hasNext()) {
-                    nextL = iterL.next()
-                    nextR = iterR.next()
-
-                    val comp = nextL compareTo nextR
+                    val comp = iterL.next() compareTo iterR.next()
                     if (comp != 0) return comp
                 }
 
