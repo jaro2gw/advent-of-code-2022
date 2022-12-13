@@ -1,6 +1,6 @@
 package day09.rope
 
-import kotlin.math.absoluteValue
+import kotlin.math.abs
 import kotlin.math.sign
 
 class RopeKnot(
@@ -22,8 +22,8 @@ class RopeKnot(
         position += vector
         if (next != null) {
             val diff = position - next.position
-            val step = Vector(diff.x.sign, diff.y.sign)
-            if (diff.x.absoluteValue > 1 || diff.y.absoluteValue > 1) {
+            if (abs(diff.x) > 1 || abs(diff.y) > 1) {
+                val step = Vector(diff.x.sign, diff.y.sign)
                 next.move(step)
             }
         }
