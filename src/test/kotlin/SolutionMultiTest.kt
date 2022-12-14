@@ -1,6 +1,6 @@
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.TestFactory
-import kotlin.test.assertEquals
 
 abstract class SolutionMultiTest {
     abstract val solve: (Input) -> String

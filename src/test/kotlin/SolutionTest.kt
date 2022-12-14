@@ -1,6 +1,6 @@
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
 
 abstract class SolutionTest {
     private val input = Input(this::class.java, file = "example.txt")

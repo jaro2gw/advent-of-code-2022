@@ -1,5 +1,9 @@
 package day12.grid
 
+import utils.Coords
+import utils.contains
+import utils.get
+
 class Grid(
     private val elevation: Array<IntArray>,
     val start: Coords,
@@ -31,8 +35,8 @@ class Grid(
                 .mapIndexed { col, i ->
                     when (Coords(row, col)) {
                         start -> 'S'
-                        end -> 'E'
-                        else -> alphabet[i]
+                        end   -> 'E'
+                        else  -> alphabet[i]
                     }
                 }
                 .joinToString(separator = "")

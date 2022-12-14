@@ -3,7 +3,7 @@ package day12;
 import Input
 import Presenter
 import Solution
-import day12.grid.Coords
+import utils.Coords
 import day12.grid.Grid
 import day12.grid.PathFinder
 
