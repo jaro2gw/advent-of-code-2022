@@ -13,8 +13,14 @@ import utils.set
 class Cave(
     rocks: List<List<Coords>>,
     leak: Coords,
-    bottom: Boolean = false,
+    bottom: Boolean,
 ) {
+    companion object {
+        private val SHIFT_LOWER = Coords(1, 0)
+        private val SHIFT_LOWER_LEFT = Coords(1, -1)
+        private val SHIFT_LOWER_RIGHT = Coords(1, 1)
+    }
+
     private val elements: Array<Array<CaveElement>>
     private val leak: Coords
 
@@ -24,13 +30,23 @@ class Cave(
                 (cols.extend(col)) to (rows.extend(row))
             }
 
-        if (bottom) {
-            rows = rows.extend(rows.max + 2)
-            val half = rows.max - rows.min + 1
-            cols = cols.extend(leak.col - half).extend(leak.col + half)
-        }
+        val paths = rocks.toMutableList()
 
-        val offset = Coords(row = rows.min, col = cols.min)
+        if (bottom) {
+            // make the cave 2 rows higher
+            rows = rows.extend(rows.max + 2)
+
+            // the bottom does not actually have to be "infinite",
+            // it only has to be long enough to form a "triangle" from where the leak is
+            val height = rows.max - rows.min + 1
+            cols = cols.extend(leak.col - height).extend(leak.col + height)
+
+            // this path will become the rock bottom
+            paths += listOf(
+                Coords(row = rows.max, col = cols.min),
+                Coords(row = rows.max, col = cols.max),
+            )
+        }
 
         val width = cols.max - cols.min + 1
         val height = rows.max - rows.min + 1
@@ -39,12 +55,7 @@ class Cave(
             Array(width) { NONE }
         }
 
-        val paths = rocks.toMutableList()
-        if (bottom) paths += listOf(
-            Coords(row = rows.max, col = cols.min),
-            Coords(row = rows.max, col = cols.max),
-        )
-
+        val offset = Coords(row = rows.min, col = cols.min)
         paths.forEach { path ->
             path.map { it - offset }
                 .zipWithNext()
@@ -59,9 +70,9 @@ class Cave(
     private fun fill(coords: Coords): Coords? {
         if (coords !in elements) throw AbyssReachedException()
         return if (!elements[coords].free) null
-        else fill(coords + Coords(1, 0))
-            ?: fill(coords + Coords(1, -1))
-            ?: fill(coords + Coords(1, 1))
+        else fill(coords + SHIFT_LOWER) // try directly lower
+            ?: fill(coords + SHIFT_LOWER_LEFT) // try lower left
+            ?: fill(coords + SHIFT_LOWER_RIGHT) // try lower right
             ?: coords
     }
 
