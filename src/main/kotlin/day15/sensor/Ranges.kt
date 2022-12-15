@@ -11,7 +11,7 @@ class Ranges {
         if (r1.lower <= r2.lower) r2.lower <= r1.upper + 1
         else r1.lower <= r2.upper + 1
 
-    fun add(range: Range) {
+    operator fun plusAssign(range: Range) {
         ranges += ranges.filter { joinable(it, range) }
             .onEach { ranges -= it }
             .fold(range) { r1, r2 ->

@@ -29,7 +29,7 @@ class SensorMap(
             val upper = sensor.col + diff
 
             ranges[row]?.apply {
-                add(range = Range(lower, upper))
+                this += Range(lower, upper)
                 if (continuous(this@SensorMap.lower, this@SensorMap.upper)) {
                     ranges -= row
                 }

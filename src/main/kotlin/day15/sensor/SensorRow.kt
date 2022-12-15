@@ -26,7 +26,7 @@ class SensorRow(
         val lower = sensor.col - dc
         val upper = sensor.col + dc
 
-        ranges.add(range = Range(lower, upper))
+        ranges += Range(lower, upper)
     }
 
     fun size(): Int = ranges.size() - obstacles.count { it in ranges }
