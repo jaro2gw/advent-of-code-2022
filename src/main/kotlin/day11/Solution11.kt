@@ -4,12 +4,12 @@ import Input
 import Presenter
 import Solution
 import day11.monkey.Monkey
+import utils.NUMBER_PATTERN
 import utils.split
 
 fun main() = Presenter.present(Solution11)
 
 object Solution11 : Solution {
-    private const val NUMBER_PATTERN = "(-?\\d+)"
     private val MONKEY_REGEX_INDEX = Regex("Monkey $NUMBER_PATTERN:")
     private val MONKEY_REGEX_ITEMS = Regex("Starting items: (($NUMBER_PATTERN(, )?)+)")
     private val MONKEY_REGEX_OPERATION = Regex("Operation: new = old ([+*]) (old|$NUMBER_PATTERN)")
@@ -28,8 +28,8 @@ object Solution11 : Solution {
     private fun operation(line: String): (Long) -> Long {
         val (symbol, ref) = MONKEY_REGEX_OPERATION.find(line)!!.destructured
         val operator: (Long, Long) -> Long = when (symbol) {
-            "+" -> { num1, num2 -> num1 + num2 }
-            "*" -> { num1, num2 -> num1 * num2 }
+            "+"  -> { num1, num2 -> num1 + num2 }
+            "*"  -> { num1, num2 -> num1 * num2 }
             else -> throw IllegalStateException("Could not convert symbol \"$symbol\" into an operator")
         }
 
