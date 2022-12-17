@@ -30,7 +30,7 @@ data class Coords(
             while (dr || dc)
         }
 
-        fun manhattanDistance(start: Coords, end:Coords): Int {
+        fun manhattanDistance(start: Coords, end: Coords): Int {
             return abs(end.row - start.row) + abs(end.col - start.col)
         }
     }
@@ -52,22 +52,35 @@ data class Coords(
     }
 }
 
+// get
+operator fun <T> Array<Array<T>>.get(coords: Coords): T = this[coords.row][coords.col]
+
 operator fun Array<IntArray>.get(coords: Coords): Int = this[coords.row][coords.col]
 
-operator fun <T> Array<Array<T>>.get(coords: Coords): T = this[coords.row][coords.col]
+operator fun List<BooleanArray>.get(coords: Coords): Boolean = this[coords.row][coords.col]
+
+// set
+operator fun <T> Array<Array<T>>.set(coords: Coords, value: T) {
+    this[coords.row][coords.col] = value
+}
 
 operator fun Array<IntArray>.set(coords: Coords, value: Int) {
     this[coords.row][coords.col] = value
 }
 
-operator fun <T> Array<Array<T>>.set(coords: Coords, value: T) {
+operator fun List<BooleanArray>.set(coords: Coords, value: Boolean) {
     this[coords.row][coords.col] = value
+}
+
+// contains
+operator fun <T> Array<Array<T>>.contains(coords: Coords): Boolean {
+    return coords.row in this.indices && coords.col in this[coords.row].indices
 }
 
 operator fun Array<IntArray>.contains(coords: Coords): Boolean {
     return coords.row in this.indices && coords.col in this[coords.row].indices
 }
 
-operator fun <T> Array<Array<T>>.contains(coords: Coords): Boolean {
+operator fun List<BooleanArray>.contains(coords: Coords): Boolean {
     return coords.row in this.indices && coords.col in this[coords.row].indices
 }
