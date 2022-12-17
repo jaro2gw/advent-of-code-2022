@@ -10,12 +10,12 @@ class RockChamber(
     shapes: List<RockShape>,
     moves: List<RockMove>
 ) {
-    private val shapes: Iterator<IndexedValue<RockShape>> = infinite(shapes).iterator()
-    private val moves: Iterator<IndexedValue<RockMove>> = infinite(moves).iterator()
+    private val shapes: Iterator<RockShape> = infinite(shapes).iterator()
+    private val moves: Iterator<RockMove> = infinite(moves).iterator()
 
-    private fun <T> infinite(elements: List<T>): Sequence<IndexedValue<T>> = sequence {
+    private fun <T> infinite(elements: List<T>): Sequence<T> = sequence {
         while (true) {
-            yieldAll(elements = elements.withIndex())
+            yieldAll(elements)
         }
     }
 
@@ -50,9 +50,9 @@ class RockChamber(
             // ensure the stack is high enough (add empty rows if needed)
             ensureHeight(stack, coords.row + 4)
 
-            val (_, shape) = shapes.next()
+            val shape = shapes.next()
             while (true) {
-                val (_, move) = moves.next()
+                val move = moves.next()
 
                 // try to move the shape left/right
                 val colShift = coords.copy(col = move.adjust(coords.col))
@@ -74,7 +74,7 @@ class RockChamber(
     private fun sum(nums: String): Int = nums.sumOf { it - '0' }
 
     fun height(turns: Long): Long {
-        val (prefix, pattern) = recordPattern(10_000)
+        val (prefix, pattern) = recordPattern()
         val diff = turns - prefix.length
         val cycles = diff / pattern.length
         val pl = diff.rem(pattern.length).toInt()
@@ -83,12 +83,12 @@ class RockChamber(
         return sum(prefix) + cycles * sum(pattern) + sum(postfix)
     }
 
-    fun recordPattern(turns: Int): Pair<String, String> {
+    private fun recordPattern(): Pair<String, String> {
         val stack = ArrayList<BooleanArray>()
         var height = 0
         val diffs = StringBuilder()
 
-        repeat(turns) {
+        repeat(10_000) {
             var coords = Coords(
                 row = height(stack) + 3,
                 col = 2,
@@ -97,9 +97,9 @@ class RockChamber(
             // ensure the stack is high enough (add empty rows if needed)
             ensureHeight(stack, coords.row + 4)
 
-            val (_, shape) = shapes.next()
+            val shape = shapes.next()
             while (true) {
-                val (_, move) = moves.next()
+                val move = moves.next()
 
                 // try to move the shape left/right
                 val colShift = coords.copy(col = move.adjust(coords.col))
@@ -117,8 +117,7 @@ class RockChamber(
             height = h
         }
 
-        val regex = Regex("(\\d{10,3000})\\1+")
-        val result = regex.findAll(diffs).maxBy { it.range.count() }
+        val result = Regex("(\\d{10,3000})\\1+").find(diffs)!!
         val range = result.range
 
         val prefix = diffs.substring(0, range.first)
