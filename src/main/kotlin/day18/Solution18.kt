@@ -12,7 +12,7 @@ fun main() = Presenter.present(Solution18)
 object Solution18 : Solution {
     private val LAVA_DROPLET_REGEX = Regex("$NUMBER_PATTERN,$NUMBER_PATTERN,$NUMBER_PATTERN")
 
-    private fun droplets(input: Input) = input.lines()
+    private fun droplets(input: Input): Set<LavaDroplet> = input.lines()
         .mapNotNull { LAVA_DROPLET_REGEX.find(it) }
         .map { it.destructured }
         .map { (x, y, z) ->
