@@ -4,8 +4,8 @@ import day14.cave.CaveElement.LEAK
 import day14.cave.CaveElement.NONE
 import day14.cave.CaveElement.ROCK
 import day14.cave.CaveElement.SAND
-import day14.utils.MinMax
 import utils.Coords
+import utils.MinMax
 import utils.contains
 import utils.get
 import utils.set
@@ -27,19 +27,19 @@ class Cave(
     init {
         var (cols, rows) = rocks.flatten()
             .fold(MinMax(leak.col) to MinMax(leak.row)) { (cols, rows), (row, col) ->
-                (cols.extend(col)) to (rows.extend(row))
+                (cols + col) to (rows + row)
             }
 
         val paths = rocks.toMutableList()
 
         if (bottom) {
             // make the cave 2 rows higher
-            rows = rows.extend(rows.max + 2)
+            rows += (rows.max + 2)
 
             // the bottom does not actually have to be "infinite",
             // it only has to be long enough to form a "triangle" from where the leak is
             val height = rows.max - rows.min + 1
-            cols = cols.extend(leak.col - height).extend(leak.col + height)
+            cols = cols + (leak.col - height) + (leak.col + height)
 
             // this path will become the rock bottom
             paths += listOf(
