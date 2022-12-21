@@ -45,7 +45,6 @@ class TreesEvaluator {
         ys = rows
     ) { c, r -> r to c }
 
-
     fun visibleTrees(trees: Trees): Int {
         val visible = Array(trees.rows) { BooleanArray(trees.cols) }
         val rows = trees.rows()
@@ -130,9 +129,9 @@ class TreesEvaluator {
     )
 
     private fun calculateScenicScore(trees: Trees, row: Int, col: Int): Int = countDistanceLeft(trees, row, col) *
-            countDistanceRight(trees, row, col) *
-            countDistanceUp(trees, row, col) *
-            countDistanceDown(trees, row, col)
+                                                                              countDistanceRight(trees, row, col) *
+                                                                              countDistanceUp(trees, row, col) *
+                                                                              countDistanceDown(trees, row, col)
 
     fun scenicScore(trees: Trees): Int = trees.indices().maxOf { (row, col) ->
         calculateScenicScore(trees, row, col)

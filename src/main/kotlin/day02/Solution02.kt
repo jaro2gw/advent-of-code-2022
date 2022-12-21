@@ -6,10 +6,10 @@ import Solution
 import day02.rps.RockPaperScissorsGameOutcome.DRAW
 import day02.rps.RockPaperScissorsGameOutcome.LOSE
 import day02.rps.RockPaperScissorsGameOutcome.WIN
+import day02.rps.RockPaperScissorsGameRound
 import day02.rps.RockPaperScissorsHandShape.PAPER
 import day02.rps.RockPaperScissorsHandShape.ROCK
 import day02.rps.RockPaperScissorsHandShape.SCISSORS
-import day02.rps.RockPaperScissorsGameRound
 
 fun main() = Presenter.present(Solution02)
 

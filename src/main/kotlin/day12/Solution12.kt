@@ -1,11 +1,11 @@
-package day12;
+package day12
 
 import Input
 import Presenter
 import Solution
-import utils.Coords
 import day12.grid.Grid
 import day12.grid.PathFinder
+import utils.Coords
 
 fun main() = Presenter.present(Solution12)
 

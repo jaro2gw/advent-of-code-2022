@@ -33,9 +33,10 @@ class ResourceArray<T> private constructor(
         array[resource.ordinal] = value
     }
 
-    override fun equals(other: Any?): Boolean = this === other ||
-            other is ResourceArray<*> &&
-            array == other.array
+    override fun equals(other: Any?): Boolean =
+        this === other ||
+        other is ResourceArray<*> &&
+        array == other.array
 
     override fun hashCode(): Int = array.hashCode()
 

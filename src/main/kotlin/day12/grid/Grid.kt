@@ -35,8 +35,8 @@ class Grid(
                 .mapIndexed { col, i ->
                     when (Coords(row, col)) {
                         start -> 'S'
-                        end   -> 'E'
-                        else  -> alphabet[i]
+                        end -> 'E'
+                        else -> alphabet[i]
                     }
                 }
                 .joinToString(separator = "")

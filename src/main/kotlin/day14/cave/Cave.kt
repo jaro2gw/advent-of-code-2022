@@ -71,9 +71,9 @@ class Cave(
         if (coords !in elements) throw AbyssReachedException()
         return if (!elements[coords].free) null
         else fill(coords + SHIFT_LOWER) // try directly lower
-            ?: fill(coords + SHIFT_LOWER_LEFT) // try lower left
-            ?: fill(coords + SHIFT_LOWER_RIGHT) // try lower right
-            ?: coords
+             ?: fill(coords + SHIFT_LOWER_LEFT) // try lower left
+             ?: fill(coords + SHIFT_LOWER_RIGHT) // try lower right
+             ?: coords
     }
 
     fun fill(): Int {

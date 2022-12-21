@@ -52,7 +52,8 @@ object FileSystemReconstructor {
                     ".." -> directory.parent!!
                     else -> directory[command.directory] as FileSystemDirectory
                 }
-            } else {
+            }
+            else {
                 node(line).invoke(directory)
             }
         }

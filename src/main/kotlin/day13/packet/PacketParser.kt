@@ -25,8 +25,8 @@ class PacketParser(
     }
 
     private fun parse(tokens: Iterator<Token>): Packet = when (val token = tokens.next()) {
-        BRACKET_L    -> list(tokens)
-        is NUMBER    -> data(token)
+        BRACKET_L -> list(tokens)
+        is NUMBER -> data(token)
         is BRACKET_R -> throw IllegalStateException("Parsing exception: encountered an unmatched closing bracket")
     }
 

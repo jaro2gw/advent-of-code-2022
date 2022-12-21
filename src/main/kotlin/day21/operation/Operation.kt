@@ -10,10 +10,10 @@ enum class Operation(private val op: Op) : Op by op {
 
     companion object {
         fun fromChar(char: Char) = when (char) {
-            '+'  -> PLUS
-            '-'  -> MINUS
-            '*'  -> TIMES
-            '/'  -> DIV
+            '+' -> PLUS
+            '-' -> MINUS
+            '*' -> TIMES
+            '/' -> DIV
             else -> throw IllegalArgumentException("Cannot convert char '$char' to an operation")
         }
     }

@@ -1,4 +1,4 @@
-package day17;
+package day17
 
 import Input
 import Presenter
@@ -14,8 +14,8 @@ object Solution17 : Solution {
         .first()
         .map {
             when (it) {
-                '<'  -> RockMove.LEFT
-                '>'  -> RockMove.RIGHT
+                '<' -> RockMove.LEFT
+                '>' -> RockMove.RIGHT
                 else -> throw IllegalArgumentException("Cannot convert char '$it' into a rock move")
             }
         }

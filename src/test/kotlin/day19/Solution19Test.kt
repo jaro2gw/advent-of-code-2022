@@ -1,4 +1,4 @@
-package day19;
+package day19
 
 //import Input
 //import Presenter

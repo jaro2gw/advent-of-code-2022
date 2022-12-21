@@ -20,13 +20,13 @@ class PacketTokenizer {
 
         string.forEach { char ->
             when (char) {
-                '['  -> yield(BRACKET_L)
-                ']'  -> {
+                '[' -> yield(BRACKET_L)
+                ']' -> {
                     val num = number(builder)
                     if (num != null) yield(num)
                     yield(BRACKET_R)
                 }
-                ','  -> {
+                ',' -> {
                     val num = number(builder)
                     if (num != null) yield(num)
                 }

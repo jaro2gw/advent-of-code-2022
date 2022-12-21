@@ -36,6 +36,7 @@ object Solution07 : Solution {
                 .filter { it >= minimumSize }
                 .min()
                 .toString()
-        } else "0"
+        }
+        else "0"
     }
 }

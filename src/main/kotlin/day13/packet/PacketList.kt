@@ -18,7 +18,7 @@ data class PacketList(val packets: List<Packet>) : Packet() {
                 return when {
                     iterR.hasNext() -> -1
                     iterL.hasNext() -> 1
-                    else            -> 0
+                    else -> 0
                 }
             }
         }

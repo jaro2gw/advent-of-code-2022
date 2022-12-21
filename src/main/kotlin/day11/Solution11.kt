@@ -1,4 +1,4 @@
-package day11;
+package day11
 
 import Input
 import Presenter
@@ -28,8 +28,8 @@ object Solution11 : Solution {
     private fun operation(line: String): (Long) -> Long {
         val (symbol, ref) = MONKEY_REGEX_OPERATION.find(line)!!.destructured
         val operator: (Long, Long) -> Long = when (symbol) {
-            "+"  -> { num1, num2 -> num1 + num2 }
-            "*"  -> { num1, num2 -> num1 * num2 }
+            "+" -> { num1, num2 -> num1 + num2 }
+            "*" -> { num1, num2 -> num1 * num2 }
             else -> throw IllegalStateException("Could not convert symbol \"$symbol\" into an operator")
         }
 
