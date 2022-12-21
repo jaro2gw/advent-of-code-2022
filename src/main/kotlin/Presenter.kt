@@ -19,7 +19,10 @@ object Presenter {
 
     fun present(solution: Solution) {
         val input = Input(solution::class.java, file = "input.txt")
+        present(solution, input)
+    }
 
+    fun present(solution: Solution, input: Input) {
         present(part = 1) { solution.part1(input) }
         present(part = 2) { solution.part2(input) }
     }

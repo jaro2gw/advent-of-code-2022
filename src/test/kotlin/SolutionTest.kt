@@ -10,7 +10,7 @@ abstract class SolutionTest {
     protected open val expected2: String? = null
 
     @Test
-    fun part1() {
+    open fun part1() {
         assertNotNull(expected1)
 
         val actual1 = solution.part1(input)
@@ -18,7 +18,7 @@ abstract class SolutionTest {
     }
 
     @Test
-    fun part2() {
+    open fun part2() {
         assertNotNull(expected2)
 
         val actual2 = solution.part2(input)
