@@ -1,4 +1,4 @@
-package day21;
+package day21
 
 import Input
 import Presenter
@@ -11,7 +11,7 @@ import utils.NUMBER_PATTERN
 
 fun main() = Presenter.present(Solution21)
 
-private typealias Numbers = Map<String, Double>
+private typealias Numbers = Map<String, Long>
 private typealias Operations = Map<String, Triple<String, Char, String>>
 
 object Solution21 : Solution {
@@ -24,14 +24,14 @@ object Solution21 : Solution {
     )
 
     private fun monkeys(input: Input): Pair<Numbers, Operations> {
-        val numbers = mutableMapOf<String, Double>()
+        val numbers = mutableMapOf<String, Long>()
         val operations = mutableMapOf<String, Triple<String, Char, String>>()
 
         input.lines().forEach { line ->
             val monkeyWithNumber = MONKEY_WITH_NUMBER_REGEX.find(line)
             if (monkeyWithNumber != null) {
                 val name = monkeyWithNumber.groupValues[1]
-                val number = monkeyWithNumber.groupValues[2].toDouble()
+                val number = monkeyWithNumber.groupValues[2].toLong()
 
                 numbers[name] = number
             }
@@ -65,13 +65,13 @@ object Solution21 : Solution {
     override fun part1(input: Input): String {
         val (numbers, operations) = monkeys(input)
         val root = monkey("root", numbers, operations)
-        return root.yell().toLong().toString()
+        return root.yell().toString()
     }
 
     override fun part2(input: Input): String {
         val (numbers, operations) = monkeys(input)
         val root = monkey("root", numbers, operations) as MonkeyWithOperation
         val santa = root.find("humn")!!
-        return root.figureOutWhatMonkeyShouldYell(santa).toLong().toString()
+        return root.figureOutWhatMonkeyShouldYell(santa).toString()
     }
 }

@@ -2,7 +2,7 @@ package day21.monkey
 
 class MonkeyWithNumber(
     name: String,
-    private val number: Double,
+    private val number: Long,
 ) : Monkey(name) {
-    override fun yell(): Double = number
+    override fun yell(): Long = number
 }

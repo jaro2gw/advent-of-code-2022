@@ -12,7 +12,7 @@ class MonkeyWithOperation(
     private val monkey2: Monkey,
     private val operation: Operation
 ) : Monkey(name) {
-    private val number: Double by lazy {
+    private val number: Long by lazy {
         operation(monkey1.yell(), monkey2.yell())
     }
 
@@ -23,11 +23,11 @@ class MonkeyWithOperation(
         return@lazy deps
     }
 
-    override fun yell(): Double = number
+    override fun yell(): Long = number
 
     override fun find(name: String): Monkey? = super.find(name) ?: monkey1.find(name) ?: monkey2.find(name)
 
-    private fun figureOutWhatMonkeyShouldYell(monkey: Monkey, match: Double): Double {
+    private fun figureOutWhatMonkeyShouldYell(monkey: Monkey, match: Long): Long {
         val match1 = when (operation) {
             PLUS -> MINUS(match, monkey2.yell())
             MINUS -> PLUS(match, monkey2.yell())
@@ -51,7 +51,7 @@ class MonkeyWithOperation(
         }
     }
 
-    fun figureOutWhatMonkeyShouldYell(monkey: Monkey): Double = when {
+    fun figureOutWhatMonkeyShouldYell(monkey: Monkey): Long = when {
         monkey1 is MonkeyWithOperation && monkey in monkey1.dependencies ->
             monkey1.figureOutWhatMonkeyShouldYell(monkey, monkey2.yell())
         monkey2 is MonkeyWithOperation && monkey in monkey2.dependencies ->

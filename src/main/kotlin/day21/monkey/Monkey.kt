@@ -3,7 +3,7 @@ package day21.monkey
 sealed class Monkey(
     val name: String
 ) {
-    abstract fun yell(): Double
+    abstract fun yell(): Long
     open fun find(name: String): Monkey? =
         if (this.name == name) this
         else null

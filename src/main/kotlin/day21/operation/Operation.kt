@@ -1,12 +1,12 @@
 package day21.operation
 
-private typealias Op = (Double, Double) -> Double
+private typealias Op = (Long, Long) -> Long
 
 enum class Operation(private val op: Op) : Op by op {
-    PLUS(Double::plus),
-    MINUS(Double::minus),
-    TIMES(Double::times),
-    DIV(Double::div);
+    PLUS(Long::plus),
+    MINUS(Long::minus),
+    TIMES(Long::times),
+    DIV(Long::div);
 
     companion object {
         fun fromChar(char: Char) = when (char) {
@@ -16,12 +16,5 @@ enum class Operation(private val op: Op) : Op by op {
             '/'  -> DIV
             else -> throw IllegalArgumentException("Cannot convert char '$char' to an operation")
         }
-
-//        fun inverse(operation: Operation) = when (operation) {
-//            PLUS  -> MINUS
-//            MINUS -> PLUS
-//            TIMES -> DIV
-//            DIV   -> TIMES
-//        }
     }
 }
