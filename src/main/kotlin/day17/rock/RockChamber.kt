@@ -3,6 +3,7 @@ package day17.rock
 import utils.Coords
 import utils.contains
 import utils.get
+import utils.infinite
 import utils.set
 
 class RockChamber(
@@ -12,12 +13,6 @@ class RockChamber(
 ) {
     private val shapes: Iterator<RockShape> = infinite(shapes).iterator()
     private val moves: Iterator<RockMove> = infinite(moves).iterator()
-
-    private fun <T> infinite(elements: List<T>): Sequence<T> = sequence {
-        while (true) {
-            yieldAll(elements)
-        }
-    }
 
     private fun height(stack: List<BooleanArray>) = stack.indexOfLast { cells -> cells.any { it } } + 1
 
