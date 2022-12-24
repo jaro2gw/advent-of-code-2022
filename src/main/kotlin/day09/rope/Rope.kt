@@ -1,5 +1,7 @@
 package day09.rope
 
+import utils.Coords
+
 class Rope private constructor(
     private val head: RopeKnot,
     private val tail: RopeKnot,
@@ -15,9 +17,9 @@ class Rope private constructor(
         }
     }
 
-    private val tails: MutableSet<Position> = mutableSetOf(tail.position)
+    private val tails: MutableSet<Coords> = mutableSetOf(tail.position)
 
-    fun tails(): Set<Position> = tails.toSet()
+    fun tails(): Set<Coords> = tails.toSet()
 
     fun move(movement: Movement) = repeat(movement.steps) {
         head.move(movement.direction.vector)
