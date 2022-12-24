@@ -6,6 +6,12 @@ import Solution
 import day22.board.Board
 import day22.board.Tile
 import day22.board.Turn
+import utils.Coords
+import utils.Direction
+import utils.Direction.EAST
+import utils.Direction.NORTH
+import utils.Direction.SOUTH
+import utils.Direction.WEST
 import utils.NUMBER_PATTERN
 import utils.split
 
@@ -47,12 +53,21 @@ object Solution22 : Solution {
         return Triple(tiles, moves, turns)
     }
 
+    private fun score(direction: Direction) = when (direction) {
+        EAST -> 0
+        SOUTH -> 1
+        WEST -> 2
+        NORTH -> 3
+    }
+
+    private fun score(coords: Coords): Int = 1000 * (coords.row + 1) + 4 * (coords.col + 1)
+
+    private fun score(coords: Coords, direction: Direction): Int = score(coords) + score(direction)
+
     override fun part1(input: Input): String {
         val (tiles, moves, turns) = convert(input)
         val (coords, direction) = Board().endpoint(tiles, moves, turns)
-        val (row, col) = coords
-        val score = 1000L * (row + 1) + 4 * (col + 1) + direction.ordinal
-        return score.toString()
+        return score(coords, direction).toString()
     }
 
     override fun part2(input: Input): String {

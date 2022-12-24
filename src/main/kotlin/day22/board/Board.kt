@@ -1,10 +1,11 @@
 package day22.board
 
-import day22.board.Direction.EAST
 import day22.board.Tile.BLOCKED
 import day22.board.Tile.BORDER
 import day22.board.Tile.EMPTY
 import utils.Coords
+import utils.Direction
+import utils.Direction.EAST
 import utils.get
 
 class Board {
@@ -49,7 +50,7 @@ class Board {
         )
 
         moves.drop(1).zip(turns).forEach { (steps, turn) ->
-            direction = direction.turn(turn)
+            direction = turn(direction)
             position = position(
                 tiles,
                 position,
