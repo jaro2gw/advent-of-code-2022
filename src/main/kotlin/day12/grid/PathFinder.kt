@@ -5,17 +5,6 @@ import utils.get
 import utils.set
 
 class PathFinder {
-    companion object {
-        private val NEIGHBOURS = listOf(
-            Coords(row = 0, col = -1), // left
-            Coords(row = 0, col = +1), // right
-            Coords(row = -1, col = 0), // up
-            Coords(row = +1, col = 0), // down
-        )
-    }
-
-    private fun neighbours(coords: Coords) = NEIGHBOURS.map { coords + it }
-
     private fun climb(
         coords: Coords,
         grid: Grid,
@@ -24,7 +13,7 @@ class PathFinder {
     ) {
         val elev = grid[coords]
         val dist = distance[coords] + 1
-        neighbours(coords)
+        Coords.immediateNeighbours(coords)
             .filter { it in grid }
             .filter { distance[it] > dist }
             .filter { predicate(elev, grid[it]) }

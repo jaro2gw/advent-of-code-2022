@@ -33,6 +33,13 @@ data class Coords(
         fun manhattanDistance(start: Coords, end: Coords): Int {
             return abs(end.row - start.row) + abs(end.col - start.col)
         }
+
+        fun immediateNeighbours(coords: Coords): List<Coords> = listOf(
+            coords.copy(row = coords.row - 1),
+            coords.copy(row = coords.row + 1),
+            coords.copy(col = coords.col - 1),
+            coords.copy(col = coords.col + 1),
+        )
     }
 
     operator fun plus(coords: Coords) = Coords(
@@ -57,6 +64,8 @@ operator fun <T> Array<Array<T>>.get(coords: Coords): T = this[coords.row][coord
 
 operator fun Array<IntArray>.get(coords: Coords): Int = this[coords.row][coords.col]
 
+operator fun Array<BooleanArray>.get(coords: Coords): Boolean = this[coords.row][coords.col]
+
 operator fun List<BooleanArray>.get(coords: Coords): Boolean = this[coords.row][coords.col]
 
 // set
@@ -65,6 +74,10 @@ operator fun <T> Array<Array<T>>.set(coords: Coords, value: T) {
 }
 
 operator fun Array<IntArray>.set(coords: Coords, value: Int) {
+    this[coords.row][coords.col] = value
+}
+
+operator fun Array<BooleanArray>.set(coords: Coords, value: Boolean) {
     this[coords.row][coords.col] = value
 }
 
@@ -78,6 +91,10 @@ operator fun <T> Array<Array<T>>.contains(coords: Coords): Boolean {
 }
 
 operator fun Array<IntArray>.contains(coords: Coords): Boolean {
+    return coords.row in this.indices && coords.col in this[coords.row].indices
+}
+
+operator fun Array<BooleanArray>.contains(coords: Coords): Boolean {
     return coords.row in this.indices && coords.col in this[coords.row].indices
 }
 
