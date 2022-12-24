@@ -3,6 +3,7 @@ package day13.packet
 import day13.packet.PacketTokenizer.Token.BRACKET_L
 import day13.packet.PacketTokenizer.Token.BRACKET_R
 import day13.packet.PacketTokenizer.Token.NUMBER
+import utils.number
 
 class PacketTokenizer {
     sealed class Token {
@@ -11,9 +12,7 @@ class PacketTokenizer {
         data class NUMBER(val number: Int) : Token()
     }
 
-    private fun flush(builder: StringBuilder): String = builder.toString().also { builder.clear() }
-
-    private fun number(builder: StringBuilder): NUMBER? = flush(builder).toIntOrNull()?.let { NUMBER(it) }
+    private fun number(builder: StringBuilder): NUMBER? = builder.number()?.let { NUMBER(it) }
 
     fun tokenize(string: String): Sequence<Token> = sequence {
         val builder = StringBuilder()
