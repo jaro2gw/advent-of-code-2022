@@ -3,14 +3,13 @@ import kotlin.time.measureTimedValue
 
 @OptIn(ExperimentalTime::class)
 object Presenter {
-    private val separator = System.lineSeparator()
+    private val newline = System.lineSeparator()
 
     private fun present(part: Int, code: () -> String?) {
-        println("Part $part:")
         val (answer, duration) = measureTimedValue(code)
-        if (answer == null) println("\tTODO")
-        else {
-            val prefix = if (answer.contains(separator)) separator else ""
+        if (answer != null) {
+            println("Part $part:")
+            val prefix = if (answer.contains(newline)) newline else ""
             val string = prefix + answer
             println("\tSolution: $string")
             println("\tDuration: $duration")

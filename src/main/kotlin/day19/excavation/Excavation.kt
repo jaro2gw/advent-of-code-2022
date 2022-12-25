@@ -14,8 +14,8 @@ class Excavation {
     ) {
         companion object {
             fun initial() = State(
-                pieces = ResourceArray.of { 0 },
-                robots = ResourceArray.of { 0 },
+                pieces = ResourceArray { 0 },
+                robots = ResourceArray { 0 },
             ).apply {
                 robots[ore] = 1
             }
@@ -31,28 +31,28 @@ class Excavation {
         .filter {
             factory.blueprints[it]
                 .required
-                .all { resource, required ->
+                .all { (resource, required) ->
                     state.pieces[resource] >= required
                 }
         }
         .toSet()
 
     private fun build(state: State, factory: RobotFactory, resource: Resource) = State(
-        pieces = ResourceArray.of { state.pieces[it] - factory.blueprints[resource].required[it] },
-        robots = ResourceArray.of { state.robots[it] },
+        pieces = ResourceArray { state.pieces[it] - factory.blueprints[resource].required[it] },
+        robots = ResourceArray { state.robots[it] },
     ).apply {
         robots[resource] += 1
     }
 
     private fun next(state: State) = State(
-        pieces = ResourceArray.of { state.robots[it] + state.pieces[it] },
-        robots = ResourceArray.of { state.robots[it] },
+        pieces = ResourceArray { state.robots[it] + state.pieces[it] },
+        robots = ResourceArray { state.robots[it] },
     )
 
     fun run(factory: RobotFactory, minutes: Int): Int {
-        val bound = ResourceArray.of { resource ->
-            factory.blueprints.maxOf {
-                it.required[resource]
+        val bound = ResourceArray { resource ->
+            factory.blueprints.maxOf { (_, blueprint) ->
+                blueprint.required[resource]
             }
         }
         bound[geode] = Int.MAX_VALUE

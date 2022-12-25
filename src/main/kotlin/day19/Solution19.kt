@@ -25,16 +25,16 @@ object Solution19 : Solution {
         .asSequence()
         .map { line ->
             val id = ROBOT_FACTORY_BLUEPRINT_ID_REGEX.find(line)!!.groupValues[1].toInt()
-            val tmp = ResourceArray.of<RobotBlueprint?> { null }
+            val tmp = ResourceArray<RobotBlueprint?> { null }
             ROBOT_BLUEPRINT_REGEX.findAll(line).forEach {
                 val resource = Resource.valueOf(it.groupValues[1])
-                val required = ResourceArray.of { 0 }
+                val required = ResourceArray { 0 }
                 required[ore] = it.groupValues[2].toInt()
                 required[clay] = it.groupValues[4].toIntOrNull() ?: 0
                 required[obsidian] = it.groupValues[6].toIntOrNull() ?: 0
                 tmp[resource] = RobotBlueprint(required)
             }
-            val blueprints = ResourceArray.of { tmp[it]!! }
+            val blueprints = ResourceArray { tmp[it]!! }
             RobotFactory(id, blueprints)
         }
 

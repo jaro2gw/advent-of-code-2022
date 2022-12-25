@@ -12,6 +12,4 @@ object Solution25 : Solution {
         val sum = input.lines().sumOf { SnafuNumber.toLong(it) }
         return SnafuNumber.fromLong(sum)
     }
-
-    override fun part2(input: Input): String = ":)"
 }
