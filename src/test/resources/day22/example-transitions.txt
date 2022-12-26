@@ -1,0 +1,20 @@
+rows: from -1 to -1; cols: from  8 to 11; direction: from SOUTH to NORTH;
+rows: from  3 to  3; cols: from  0 to  3; direction: from NORTH to SOUTH;
+
+rows: from  0 to  3; cols: from  7 to  7; direction: from  EAST to  WEST;
+rows: from  3 to  3; cols: from  4 to  7; direction: from NORTH to SOUTH;
+
+rows: from  0 to  3; cols: from 12 to 12; direction: from  WEST to  EAST;
+rows: from  8 to 11; cols: from 16 to 16; direction: from  EAST to  WEST;
+
+rows: from  4 to  7; cols: from -1 to -1; direction: from  EAST to  WEST;
+rows: from 12 to 12; cols: from 12 to 15; direction: from SOUTH to NORTH;
+
+rows: from  4 to  7; cols: from 12 to 12; direction: from  WEST to  EAST;
+rows: from  7 to  7; cols: from 15 to 12; direction: from NORTH to SOUTH;
+
+rows: from  8 to  8; cols: from  3 to  0; direction: from NORTH to SOUTH;
+rows: from 12 to 12; cols: from  8 to 11; direction: from SOUTH to NORTH;
+
+rows: from  8 to  8; cols: from  4 to  7; direction: from NORTH to SOUTH;
+rows: from  8 to 11; cols: from  7 to  7; direction: from  WEST to  EAST;

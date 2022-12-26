@@ -4,6 +4,8 @@ import Input
 import Presenter
 import Solution
 import day22.board.Board
+import day22.board.Board.State
+import day22.board.Cube
 import day22.board.Tile
 import day22.board.Turn
 import utils.Coords
@@ -15,11 +17,22 @@ import utils.Direction.WEST
 import utils.NUMBER_PATTERN
 import utils.split
 
-fun main() = Presenter.present(Solution22)
+fun main() = Presenter.present(
+    solution = Solution22(
+        transitions = Input(
+            clazz = Solution22::class.java,
+            file = "input-transitions.txt"
+        )
+    )
+)
 
-object Solution22 : Solution {
+class Solution22(private val transitions: Input) : Solution {
     private val MOVE_REGEX = Regex(NUMBER_PATTERN)
     private val TURN_REGEX = Regex("([LR])")
+    private val DIRECTION_PATTERN = "(NORTH|EAST|SOUTH|WEST)"
+    private val TRANSITION_REGEX = Regex(
+        "rows: from +$NUMBER_PATTERN to +$NUMBER_PATTERN; cols: from +$NUMBER_PATTERN to +$NUMBER_PATTERN; direction: from +$DIRECTION_PATTERN to +$DIRECTION_PATTERN;"
+    )
 
     private fun turns(line: String): List<Turn> = TURN_REGEX.findAll(line)
         .map { it.groupValues[1] }
@@ -53,6 +66,48 @@ object Solution22 : Solution {
         return Triple(tiles, moves, turns)
     }
 
+    private fun extractTransition(line: String): Triple<Coords, Coords, Pair<Direction, Direction>> {
+        val (row1, row2, col1, col2, dir1, dir2) = TRANSITION_REGEX.find(line)!!.destructured
+
+        val coords1 = Coords(
+            row = row1.toInt(),
+            col = col1.toInt(),
+        )
+
+        val coords2 = Coords(
+            row = row2.toInt(),
+            col = col2.toInt(),
+        )
+
+        val directions = Direction.valueOf(dir1) to Direction.valueOf(dir2)
+
+        return Triple(coords1, coords2, directions)
+    }
+
+    private fun precomputeTransitions(): Map<State, State> {
+        val map = mutableMapOf<State, State>()
+
+        split(transitions).forEach { (line1, line2) ->
+            val (coords11, coords12, directions1) = extractTransition(line1)
+            val (coords21, coords22, directions2) = extractTransition(line2)
+
+            val path1 = Coords.path(coords11, coords12)
+            val path2 = Coords.path(coords21, coords22)
+
+            path1.zip(path2).forEach { (coords1, coords2) ->
+                val key1 = State(coords1, directions1.second)
+                val val1 = State(coords2, directions2.second)
+                map[key1] = val1
+
+                val key2 = State(coords2, directions2.first)
+                val val2 = State(coords1, directions1.first)
+                map[key2] = val2
+            }
+        }
+
+        return map.toMap()
+    }
+
     private fun score(direction: Direction) = when (direction) {
         EAST -> 0
         SOUTH -> 1
@@ -66,11 +121,14 @@ object Solution22 : Solution {
 
     override fun part1(input: Input): String {
         val (tiles, moves, turns) = convert(input)
-        val (coords, direction) = Board().endpoint(tiles, moves, turns)
+        val (coords, direction) = Board(tiles).endpoint(moves, turns)
         return score(coords, direction).toString()
     }
 
     override fun part2(input: Input): String {
-        TODO()
+        val (tiles, moves, turns) = convert(input)
+        val transitions = precomputeTransitions()
+        val (coords, direction) = Cube(tiles, transitions::getValue).endpoint(moves, turns)
+        return score(coords, direction).toString()
     }
 }
