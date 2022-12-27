@@ -57,6 +57,8 @@ data class Coords(
         return if (comp != 0) comp
         else this.col.compareTo(other.col)
     }
+
+    override fun toString(): String = "(row: $row, col: $col)"
 }
 
 // get

@@ -7,4 +7,6 @@ enum class Direction(dr: Int, dc: Int) {
     WEST(0, -1);
 
     val vector = Coords(row = dr, col = dc)
+
+    override fun toString(): String = name.take(1)
 }
